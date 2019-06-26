@@ -16,8 +16,11 @@ const router = express.Router();
 //Require the routes file to pass out router object
 require('./config/routes')(router);
 
+
 //Makes public folder a static directory
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
+app.use(express.static('/assets/javascript'))
+
 
 //Connect handlebars to our Express App
 app.engine('handlebars', exphbs({

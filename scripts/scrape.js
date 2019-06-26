@@ -1,17 +1,17 @@
 
 //Request and cheerio make our scrapes possible.
-const request = require('request');
+const axios = require('axios');
 const cheerio = require('cheerio');
 
 const scrape = function (cb) {
-    request('http://www.nytimes.com', function(err, res, body) {
-        let $ = cheerio.load(body);
+    axios('https://www.nytimes.com').then(function(response) {
+        let $ = cheerio.load(response.data);
 
         let articles = [];
     
         $('.theme-summary').each(function(i, element){
-            const head = $(this).children('.story-heading').text().trim();
-            const sum = $(this).children('.summary').text().trim();
+            const head = $(element).children('.story-heading').text().trim();
+            const sum = $(element).children('.summary').text().trim();
     
             if(head && sum){
                 const headNeat = head.replace(/(\r\n|\n|\r|\t|\s+)/gm, "").trim();
@@ -26,6 +26,7 @@ const scrape = function (cb) {
             }
         });
         cb(articles);
+        console.log(articles);
     });
 };
 

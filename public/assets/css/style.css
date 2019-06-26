@@ -2,3 +2,38 @@ body {
     margin-bottom: 80px;
     background-image: url('newpaper.jpg');
 }
+
+ul {
+    text-align: center;
+}
+li {
+    display: inline;
+    float: none;
+}
+a {
+    display: inline-block;
+}
+
+.nav-link {
+    color: white;
+}
+
+.jumbotron {
+    background-color: rgba(53, 52, 52, 0.8);
+    color: white;
+}
+
+.article-container {
+    background-color: rgba(53, 52, 52, 0.8);
+    color: white;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(53, 52, 52);
+    color: white;
+    text-align: center;
+}
