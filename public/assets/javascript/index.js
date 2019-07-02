@@ -38,14 +38,14 @@ $(document).ready(function() {
           '<div class="panel-heading">',
           "<h3>",
           article.headline,
-          '<button class="btn button-success save">',
-          "Save Article",
-          "</button>",
           "</h3>",
           "</div>",
           '<div class="panel-body">',
           article.summary,
           "</div>",
+          '<button class="btn button-success save">',
+          "Save Article",
+          "</button>",
           "</div>"
         ].join("")
       );
@@ -108,17 +108,18 @@ $(document).ready(function() {
         const scrapeAlert = $(
           [
             '<div class="alert alert-warning alert-dismissible fade show" role="alert">',
-            '<strong>Holy guacamole!</strong>',
+            '<strong>Scrape Successful!</strong>',
             `<h3 class="text-center m-top-80">${data.message}</h3>`,
             '<button type="button" class="close" data-dismiss="alert" aria-label="Close">',
             '<span aria-hidden="true">&times;</span>',
             '</button>',
             '</div>'
-          ]
+          ].join('')
         )
         console.log(data);
+        articleContainer.append(scrapeAlert);
       });
-      articleContainer.append(scrapeAlert);
+
     }
   });
   
