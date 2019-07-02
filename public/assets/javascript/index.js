@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const articleContainer = $(".article-container");
-    // $(document).on("click", ".btn.save", articleSave());
-    $(document).on("click", "scrape-new", articleScrape());
+    $(document).on("click", ".save", articleSave);
+    $(document).on("click", ".scrape-new", articleScrape);
   
     initPage();
   
@@ -26,6 +26,8 @@ $(document).ready(function() {
       for (let i = 0; i < articles.length; i++) {
         articlePanels.push(createPanel(articles[i]));
       }
+      //Then append the articles to the article container.
+      articleContainer.append(articlePanels);
     }
   
     function createPanel(article) {
@@ -36,9 +38,9 @@ $(document).ready(function() {
           '<div class="panel-heading">',
           "<h3>",
           article.headline,
-          '<a class="btn button-success save">',
+          '<button class="btn button-success save">',
           "Save Article",
-          "</a>",
+          "</button>",
           "</h3>",
           "</div>",
           '<div class="panel-body">',
@@ -76,10 +78,8 @@ $(document).ready(function() {
   
     function articleSave() {
       //Allows user to save a selected article.
-      const articleToSave = $(this)
-        .parents(".panel")
-        .data();
-      //We retrieve the initially assigned onject containing headline.
+      let articleToSave = $(this).parents(".panel").data();
+      //We retrieve the initially assigned object containing headline.
       //We access it here.
       articleToSave.saved = true;
   
@@ -101,13 +101,24 @@ $(document).ready(function() {
       //handles when user hits scrape new articles button.
       $.get("/api/fetch")
       .then(function(data) {
-      //Compares NYTimes and compares the articles with what we already have.
+      //Compares website and compares the articles with what we already have.
       //Lets user know how many unique articles were found. 
         initPage();
         scrape();
-        bootbox.alert('<h3 class="text-center m-top-80">'+ data.message + '</h3>')
+        const scrapeAlert = $(
+          [
+            '<div class="alert alert-warning alert-dismissible fade show" role="alert">',
+            '<strong>Holy guacamole!</strong>',
+            `<h3 class="text-center m-top-80">${data.message}</h3>`,
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">',
+            '<span aria-hidden="true">&times;</span>',
+            '</button>',
+            '</div>'
+          ]
+        )
         console.log(data);
       });
+      articleContainer.append(scrapeAlert);
     }
   });
   

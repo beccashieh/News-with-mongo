@@ -20,6 +20,7 @@ module.exports = function(router) {
         res.render('saved');
     });
 
+    //Pulls the scrape function from our headlines controller file.
     router.get('/api/fetch', function(req, res) {
         headlinesController.fetch(function(err, docs) {
             if (!docs || docs.insertedCount === 0) {
@@ -35,6 +36,7 @@ module.exports = function(router) {
             }
         });
     });
+    //Goes to the specific article the user wants.
     router.get('/api/headlines', function(req, res) {
         let query = {};
         if (req.query.saved) {
@@ -46,6 +48,7 @@ module.exports = function(router) {
         });
     });
 
+    //Allows user to remove an article.
     router.delete('/api/headlines/:id', function(req, res) {
         let query = {};
         query._id = req.params.id;
@@ -54,15 +57,18 @@ module.exports = function(router) {
         });
     });
 
+    //Runs the update function from the headlines controller.
     router.patch('/api/headlines', function(req, res) {
         headlinesController.update(req.body, function(err, data) {
             res.json(data);
         });
     });
+
+    //Returns the data from the query the user sets. 
     router.get('api/notes/:headline_id?', function(req, res) {
         let query = {};
         if (req.params.headline_id) {
-            query._id = req. params.headline_id;
+            query._id = req.params.headline_id;
         }
 
         notesController.get(query, function(err, data) {
@@ -70,6 +76,7 @@ module.exports = function(router) {
         });
     });
 
+    //Deletes specific note using the notes controller.
     router.delete('/api/notes/:id', function(req, res) {
         let query = {};
         query._id = req.params.id;
@@ -78,6 +85,7 @@ module.exports = function(router) {
         });
     });
 
+    //Uses notes controller save function to add the notes displaying them on front end. 
     router.post('/api/notes', function(req, res){
         notesController.save(req.body, function(data){
             res.json(data);

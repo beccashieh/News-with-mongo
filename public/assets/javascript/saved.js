@@ -4,14 +4,15 @@ $(document).ready(function() {
   const articleContainer = $(".article-container");
 
   $(document).on("click", ".btn-delete", articleDelete);
-  $(document).on("click", ".btn-notes", articleNotes);
+  $(document).on("click", ".notes", articleNotes);
   $(document).on("click", ".btn-save", noteSave);
-  $(document).on("click", ".btn.note-delete", noteDelete);
+  $(document).on("click", ".note-delete", noteDelete);
 
   initPage();
 
   function initPage() {
     articleContainer.empty();
+    //Looking for articles that match the query with the saved=true to show only saved articles.
     $.get("/api/headlines?saved=true").then(function(data) {
       if (data && data.length) {
         renderArticles(data);
@@ -27,7 +28,7 @@ $(document).ready(function() {
     let articlePanels = [];
     //We pass each article object to the createPanel function
     for (let i = 0; i < articles.length; i++) {
-      atriclePanels.push(createPanel(articles[i]));
+      articlePanels.push(createPanel(articles[i]));
     }
     //Now we can append the articles in our array to the container.
     articleContainer.append(articlePanels);
@@ -41,14 +42,17 @@ $(document).ready(function() {
         '<div class="panel-heading">',
         "<h3>",
         article.headline,
-        '<a class="btn button-success save">',
-        "Save Article",
-        "</a>",
         "</h3>",
         "</div>",
         '<div class="panel-body">',
         article.summary,
         "</div>",
+        '<button class="btn button-success notes">',
+        "Add Note",
+        "</button>",
+        '<button class="btn button-success delete">',
+        "Delete Article",
+        "</button>",
         "</div>"
       ].join("")
     );
@@ -126,14 +130,28 @@ $(document).ready(function() {
       .data();
     $.get("/api/notes/" + currentArticle._id).then(function(data) {
       const modalText = [
-        '<div class="container-fluid text-center">',
-        "<h4>Notes for Article: ",
+        '<div class="modal" tabindex="-1" role="dialog">',
+        '<div class="modal-dialog" role="document">',
+        '<div class="modal-content">', 
+        '<div class="modal-header">',
+        '<h5 class="modal-title">Notes for Article: "',
         currentArticle._id,
-        "</h4>",
+        '</h5>',
+        '<button type="button" class="close" data-dismiss="modal" aria-label="Close">',
+        '<span aria-hidden="true">&times;</span>',
+        '</button>',
+        '</div>',
+        '<div class="modal-body note-container">',
         "<hr />",
         '<ul class="list-group note-container">',
         '<textarea placeholder="New Note" rows="4" cols="60"></textarea>',
-        '<button class="btn btn-success save">Save Note</button>',
+        '</div>',
+        '<div class="modal-footer">',
+        '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>',
+        '<button type="button" class="btn btn-primary">Save changes</button>',
+        '</div>',
+        '</div>',
+        '</div>',
         '</div>'
       ].join("");
       //Adds the above formatted html to the modal
@@ -145,7 +163,7 @@ $(document).ready(function() {
           _id: currentArticle._id,
           notes: data || []
       };
-      $('.btn.save').data('article', noteData);
+      $('.save').data('article', noteData);
       notesList(noteData);
     });
   }

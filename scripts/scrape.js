@@ -16,9 +16,12 @@ const scrape = function (cb) {
     
             //If head and sum exists, clean text.
             if (head && sum) {
+                const headNeat = head.replace(/(\r\n|\n|\r|\t|\s+)/gm, '').trim();
+                const sumNeat = sum.replace(/(\r\n|\n|\r|\t|\s+)/gm, '').trim();
+
                 const dataToAdd = {
-                    head: head,
-                    sum: sum
+                    headline: headNeat,
+                    summary: sumNeat
                 };
     
                 //Pushes to new article array.

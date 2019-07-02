@@ -1,6 +1,9 @@
 body {
     margin-bottom: 80px;
     background-image: url('newpaper.jpg');
+    background-attachment: fixed;
+    font-family: 'Vidaloka', serif;
+
 }
 
 ul {
@@ -21,6 +24,7 @@ a {
 .jumbotron {
     background-color: rgba(53, 52, 52, 0.8);
     color: white;
+    height: 400px;
 }
 
 .article-container {
@@ -36,4 +40,24 @@ a {
     background-color: rgba(53, 52, 52);
     color: white;
     text-align: center;
+}
+
+button {
+    z-index: 1;
+    color: lightgoldenrodyellow!important;
+    background-color: darkgray!important;
+    margin: 5px;
+}
+
+.panel {
+    padding: 10px;
+    border: 1px solid whitesmoke;
+    margin: 10px;
+}
+
+.caption {
+    font-family: 'Playfair Display SC', serif!important;
+    margin: auto;
+    font-size: xx-large;
+    vertical-align: middle;
 }

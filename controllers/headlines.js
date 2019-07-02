@@ -14,6 +14,7 @@ module.exports = {
                 articles[i].saved = false;
             }
 
+            //Inserts the articles into the headlines function
             Headline.collection.insertMany(articles, {ordered:false}, function(err, docs){
                 cb(err, docs);
             });
