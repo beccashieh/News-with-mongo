@@ -1,5 +1,5 @@
 const Note = require('../models/Note');
-const makeNote = require('../scripts/date');
+const makeDate = require('../scripts/date');
 
 module.exports = {
     get: function(data, cb) {

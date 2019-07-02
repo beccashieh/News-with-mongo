@@ -28,13 +28,14 @@ module.exports = function(router) {
                 });
             }
             else {
+                scrape();
                 res.json({
                     message: `Added ${docs.insertedCount} new articles!`
                 });
             }
         });
     });
-    router.get('/api/headline', function(req, res) {
+    router.get('/api/headlines', function(req, res) {
         let query = {};
         if (req.query.saved) {
             query = req.query;

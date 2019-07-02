@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const articleContainer = $(".article-container");
-    $(document).on("click", ".btn.save", articleSave);
-    $(document).on("click", "scrape-new", articleScrape);
+    // $(document).on("click", ".btn.save", articleSave());
+    $(document).on("click", "scrape-new", articleScrape());
   
     initPage();
   
@@ -56,7 +56,7 @@ $(document).ready(function() {
     function renderEmpty() {
       const emptyMessage = $(
         [
-          '<div class="alert alert-warning text-center">',
+          '<div class="container alert alert-warning text-center">',
           "<h4> There are no new articles</h4>",
           "</div>",
           '<div class="panel panel-default">',
@@ -64,8 +64,8 @@ $(document).ready(function() {
           "<h3>What would you like to do?</h3>",
           "</div>",
           '<div class="panel-body text-center">',
-          '<h4><a class="scrape-new">Scrape New Articles</a></h4>',
-          '<h4><a href="/saved">Go to my Saved Articles"</a></h4>',
+          '<h4><a href="/api/fetch" class="scrape-new">Scrape New Articles</a></h4>',
+          '<h4><a href="/saved">Go to my Saved Articles</a></h4>',
           "</div>",
           "</div>"
         ].join("")
@@ -79,7 +79,7 @@ $(document).ready(function() {
       const articleToSave = $(this)
         .parents(".panel")
         .data();
-      //We retrieve the initially assigned onject containing heardline.
+      //We retrieve the initially assigned onject containing headline.
       //We access it here.
       articleToSave.saved = true;
   
@@ -104,7 +104,9 @@ $(document).ready(function() {
       //Compares NYTimes and compares the articles with what we already have.
       //Lets user know how many unique articles were found. 
         initPage();
+        scrape();
         bootbox.alert('<h3 class="text-center m-top-80">'+ data.message + '</h3>')
+        console.log(data);
       });
     }
   });

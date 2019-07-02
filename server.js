@@ -5,7 +5,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 
 //Set our port to be either host's designation or 3000.
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 //Initiates express
 const app = express();

@@ -5,6 +5,7 @@ const makeDate = require('../scripts/date');
 const Headline = require('../models/Headline');
 
 module.exports = {
+    //runs scrape function and inserts them into db.
     fetch: function(cb) {
         scrape(function(data) {
             const articles = data;

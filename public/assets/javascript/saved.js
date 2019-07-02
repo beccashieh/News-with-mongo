@@ -5,7 +5,7 @@ $(document).ready(function() {
 
   $(document).on("click", ".btn-delete", articleDelete);
   $(document).on("click", ".btn-notes", articleNotes);
-  $(document).on("click", ".btn-save", articleSave);
+  $(document).on("click", ".btn-save", noteSave);
   $(document).on("click", ".btn.note-delete", noteDelete);
 
   initPage();
@@ -19,6 +19,18 @@ $(document).ready(function() {
         renderEmpty();
       }
     });
+  }
+
+  function renderArticles(articles) {
+    //Handles sending the HTML with the article data to the page.
+    //JSON containing all of the available articles in our database goes here.
+    let articlePanels = [];
+    //We pass each article object to the createPanel function
+    for (let i = 0; i < articles.length; i++) {
+      atriclePanels.push(createPanel(articles[i]));
+    }
+    //Now we can append the articles in our array to the container.
+    articleContainer.append(articlePanels);
   }
 
   function createPanel(article) {
@@ -85,7 +97,7 @@ $(document).ready(function() {
         "<h3>Do you want to Browse the available articles?</h3>",
         "</div>",
         '<div class="panel-body text-center">',
-        '<h4><a href="/">Browse Articles"</a></h4>',
+        '<h4><a href="/">Browse Articles</a></h4>',
         "</div>",
         "</div>"
       ].join("")
@@ -134,7 +146,7 @@ $(document).ready(function() {
           notes: data || []
       };
       $('.btn.save').data('article', noteData);
-      renderNotesList(noteData);
+      notesList(noteData);
     });
   }
 
