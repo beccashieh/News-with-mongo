@@ -6,12 +6,14 @@ News with Mongo is a website scraper tool that allows the user to scrape new art
 
 ## Instructions
 
-To get started, you will need to run the following in your terminal:
----
+Run the following commands in your terminal:
+
+```
 npm install
 mongo
 node server.js
----
+
+```
 
 ## Technologies
 
